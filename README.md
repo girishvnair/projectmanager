@@ -1,4 +1,58 @@
-Web application using Python (Flask) for the backend and ReactJS for the frontend. The code is broken down into the following sections:
+Web application using Python (Flask) for the backend and ReactJS for the frontend. 
+This custom project management application is designed to streamline project creation, resource allocation, and task management for project managers. It features a user-friendly interface that allows project managers to log in, create projects, search for resources based on skills, and assign them to projects using a drag-and-drop mechanism. With administrator access for managing user roles, including project managers and resources, the app offers real-time notifications and phase-based task structuring. The integrated Kanban board visualizes task progress during scrums, enhancing team collaboration and efficiency. Built using Python and React, the application is fully containerized for easy deployment and scalability on cloud platforms like AWS
+
+Here are some key advantages of your custom-built project management application compared to other commercially available project management tools:
+
+### 1. **Tailored to Specific Needs**
+   - **Customization**: Your application is designed to match your team's exact workflow and processes, from skill-based resource allocation to phase-based task management. Commercial tools often require teams to adapt their workflow to the software, whereas your tool can evolve with your needs.
+   - **Flexible Phasing and Scrum Integration**: The ability to create custom project phases, define timelines, and manage scrums directly within each phase offers a highly adaptable project structure that most generic tools may not provide in such detail.
+
+### 2. **Simplified Resource Allocation with Skills Matching**
+   - **Drag-and-Drop Resource Assignment**: The application allows project managers to search for resources by skill and assign them to projects using an intuitive drag-and-drop interface. This speeds up the process and reduces complexity, ensuring the right person is assigned to the right task.
+   - **Skill-Based Search**: Unlike generic project management tools that may require manual input or external spreadsheets to track resource skills, this application directly integrates a skills search, making resource allocation more efficient.
+
+### 3. **User Roles and Permissions**
+   - **Role-Based Access**: The application includes distinct roles (Administrator, Project Manager, Resource), with specific features and permissions for each. This level of access control ensures better security and task focus compared to many commercial tools that offer more generic role management.
+   - **Administrator Control**: The admin feature allows efficient user management with the ability to create and delete project managers and resources, which is often more rigid in off-the-shelf tools.
+
+### 4. **Integration of Backlogs and Kanban Board**
+   - **Direct Scrum and Kanban Integration**: The ability to seamlessly transition from backlog creation to a fully functional Kanban board, where tasks are directly assigned to resources, provides a smoother, more integrated experience compared to tools where users have to switch between multiple views and tabs.
+   - **Task Visibility and Assignment**: The application ensures project managers have a clear view of each resource’s task status on the Kanban board, making it easier to track task progression, workload, and bottlenecks.
+
+### 5. **Cost-Effective and Scalable**
+   - **Cost Savings**: Since it's a custom-built application, there are no subscription fees that are common in commercial project management tools like Jira, Trello, or Asana. This can lead to significant cost savings for organizations in the long run.
+   - **Scalability**: The application is built to run in Docker containers, making it highly scalable and easy to deploy on cloud services like AWS ECS. This gives it the flexibility to grow with your organization without the need for expensive upgrades.
+
+### 6. **Real-Time Notifications**
+   - **Instant Resource Notifications**: When resources are assigned to a project, they receive real-time notifications. This feature keeps team members updated, reducing communication delays compared to some tools that require manual status updates.
+
+### 7. **Focus on Simplicity and User Experience**
+   - **Ease of Use**: Unlike commercial tools that may have a steep learning curve due to the number of features, your application offers a simple and intuitive user interface tailored to the exact needs of project managers and team members.
+   - **Streamlined Workflows**: The application's focus on core project management tasks (assigning resources, managing scrums, task boards) reduces unnecessary clutter and options that can overwhelm users in other tools.
+
+### 8. **Data Privacy and Control**
+   - **Full Data Ownership**: Since it's your custom solution, you have complete control over where and how your project data is stored. With commercial tools, you may have to trust third-party cloud providers to secure your data, which may not be ideal for all organizations.
+   - **Security Customization**: You can implement security features (such as encryption and SOC2 compliance) as per your organization’s needs, rather than relying on the default security practices of commercial tools.
+
+### 9. **Seamless Deployment and DevOps Integration**
+   - **DevOps-Friendly**: The application can easily integrate with your organization's CI/CD pipelines, allowing automated deployments to AWS or other cloud providers. This level of DevOps integration is often a paid or complex feature in off-the-shelf tools.
+   - **Dockerized Environment**: The Dockerization of the application ensures consistent performance across different environments and allows easy deployment, scaling, and management through services like AWS ECS.
+
+### 10. **Potential for Continuous Improvement**
+   - **Agility in Feature Development**: Since the application is custom-built, you can continuously evolve it by adding new features, improving existing functionalities, or adapting it to meet changing business needs without waiting for updates from a third-party vendor.
+   - **Integration with Existing Tools**: The application can be customized to integrate with existing tools (e.g., Slack, Git, CI/CD pipelines) much more easily than many commercial tools that require premium subscriptions for such integrations.
+
+### Conclusion
+
+Compared to commercial project management tools,  custom-built application provides:
+- Greater flexibility in terms of features and workflows.
+- An enhanced resource allocation system with skill-based search.
+- Custom user roles and permissions for better control.
+- A cost-effective, scalable solution that integrates seamlessly with DevOps and cloud infrastructure.
+
+This gives your application a clear edge in adaptability, user experience, cost savings, and security, especially for organizations with unique project management needs.
+
+The code is broken down into the following sections:
 
 Backend (Flask/Python) - Authentication, project creation, skills and users retrieval, drag-and-drop, project management, Kanban board data.
 Frontend (ReactJS) - Authentication, drag-and-drop UI, Kanban board.
