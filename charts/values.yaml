@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: your-docker-repo/project-management-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  name: project-management-app
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: false
+  name: ""
+  annotations: {}
+  path: /
+  hosts:
+    - host: chart-example.local
+      paths:
+        - /
+  tls: []
+
+resources: {}

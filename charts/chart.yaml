@@ -1,0 +1,5 @@
+apiVersion: v2
+name: project-management-app
+description: A Helm chart for deploying the Project Management Application
+version: 1.0.0
+appVersion: "1.0"
