@@ -253,3 +253,21 @@ To ensure continuous deployment of your Docker image, you can configure ECS as a
 4. Create ECS Task and run it in ECS Cluster through the AWS Console.
 
 This process will allow others to dockerize and deploy your application on AWS ECS.
+
+Deploying the Chart
+Package the Helm Chart (optional):
+
+bash
+helm package project-management-app
+Deploy the Chart to AKS:
+
+bash
+helm install project-management-app ./project-management-app
+Verify the Deployment:
+
+bash
+kubectl get deployments
+kubectl get services
+kubectl get pods
+
+This setup will help you deploy your application on AKS using Helm. You can customize the values.yaml file as needed to fit your specific application configuration and deployment preferences.
