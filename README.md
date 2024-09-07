@@ -252,7 +252,7 @@ To ensure continuous deployment of your Docker image, you can configure ECS as a
 
 4. Create ECS Task and run it in ECS Cluster through the AWS Console.
 
-This process will allow others to dockerize and deploy your application on AWS ECS.
+This process will allow users dockerize and deploy the application on AWS ECS.
 
 Deploying the Chart
 Package the Helm Chart (optional):
