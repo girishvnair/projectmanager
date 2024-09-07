@@ -1,3 +1,7 @@
+# Author: Girish Venugopalan Nair girishvnair@gmail.com
+# Date: 2024
+# Description: This script handles the backend logic for the project management tool.
+
 from flask import Flask, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS

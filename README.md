@@ -1,3 +1,7 @@
+## Author
+
+Girish Venugopalan Nair girishvnair@gmail.com
+
 Web application using Python (Flask) for the backend and ReactJS for the frontend. 
 This custom project management application is designed to streamline project creation, resource allocation, and task management for project managers. It features a user-friendly interface that allows project managers to log in, create projects, search for resources based on skills, and assign them to projects using a drag-and-drop mechanism. With administrator access for managing user roles, including project managers and resources, the app offers real-time notifications and phase-based task structuring. The integrated Kanban board visualizes task progress during scrums, enhancing team collaboration and efficiency. Built using Python and React, the application is fully containerized for easy deployment and scalability on cloud platforms like AWS
 
