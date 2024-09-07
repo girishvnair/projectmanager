@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useDrop } from 'react-dnd';
 import LoginPage from './LoginPage';
 import KanbanBoard from './KanbanBoard';
+import Signup from './Signup';
+import AdminPage from './AdminPage';
 
 function ProjectPage() {
   const [projects, setProjects] = useState([]);
@@ -75,6 +77,8 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/project" element={<ProjectPage />} />
         <Route path="/kanban" element={<KanbanBoard />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Router>
   );
