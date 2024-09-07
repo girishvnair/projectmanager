@@ -15,7 +15,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
-    skills = db.Column(db.String(300), nullable=False)  # Comma separated skills
+    skills = db.Column(db.String(300), nullable=True)  # Only used for resources
+    role = db.Column(db.String(50), nullable=False)  # Role: 'admin', 'project_manager', 'resource'
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +34,55 @@ class Task(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Admin route to create a user
+@app.route('/admin/create_user', methods=['POST'])
+@login_required
+def create_user():
+    if current_user.role != 'admin':
+        return jsonify({"message": "Unauthorized"}), 403
+
+    data = request.get_json()
+    new_user = User(
+        username=data['username'],
+        password=data['password'],
+        role=data['role'],
+        skills=data.get('skills', '')
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "User created successfully"}), 201
+
+# Admin route to delete a user
+@app.route('/admin/delete_user/<int:user_id>', methods=['DELETE'])
+@login_required
+def delete_user(user_id):
+    if current_user.role != 'admin':
+        return jsonify({"message": "Unauthorized"}), 403
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({"message": "User deleted successfully"}), 200
+
+# Signup route for resources and project managers
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    role = data['role']  # Either 'project_manager' or 'resource'
+
+    new_user = User(
+        username=data['username'],
+        password=data['password'],
+        role=role,
+        skills=data.get('skills', '') if role == 'resource' else None
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "Signup successful"}), 201
+
 # Login route
 @app.route('/login', methods=['POST'])
 def login():
@@ -40,7 +90,7 @@ def login():
     user = User.query.filter_by(username=data['username'], password=data['password']).first()
     if user:
         login_user(user)
-        return jsonify({"message": "Logged in successfully"}), 200
+        return jsonify({"message": "Logged in successfully", "role": user.role}), 200
     return jsonify({"message": "Invalid credentials"}), 401
 
 # Create new project
