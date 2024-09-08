@@ -2,17 +2,22 @@
 # Date: 2024
 # Description: This script handles the backend logic for the project management tool.
 
-from flask import Flask, jsonify, request, session
+from flask import Flask, render_template, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+from flask_socketio import SocketIO, join_room, leave_room, send
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projects.db'
+socketio = SocketIO(app)
 db = SQLAlchemy(app)
 CORS(app)
 login_manager = LoginManager(app)
+
+# Chat room namespace
+ROOMS = {}  # Store active rooms
 
 # Models for User and Project
 class User(db.Model, UserMixin):
@@ -102,7 +107,7 @@ def login():
 @login_required
 def create_project():
     data = request.get_json()
-    new_project = Project(name=data['name'], manager_id=session['user_id'])
+    new_project = Project(name=data['name'], manager_id=current_user.id)
     db.session.add(new_project)
     db.session.commit()
     return jsonify({"message": "Project created successfully"}), 201
@@ -149,6 +154,35 @@ def get_kanban(project_id):
     kanban_data = [{"task": t.description, "assignee": t.assignee_id} for t in tasks]
     return jsonify(kanban_data), 200
 
+# Project route with chat functionality
+@app.route("/projects/<project_id>")
+def project_detail(project_id):
+    return render_template("project.html", project_id=project_id)
+
+# Handle joining chat rooms
+@socketio.on('join')
+def handle_join(data):
+    username = data['username']
+    project_id = data['project_id']
+    join_room(project_id)
+    send(f"{username} has joined the chat", room=project_id)
+
+# Handle sending messages
+@socketio.on('message')
+def handle_message(data):
+    project_id = data['project_id']
+    message = data['message']
+    username = data['username']
+    send({'username': username, 'message': message}, room=project_id)
+
+# Handle leaving rooms
+@socketio.on('leave')
+def handle_leave(data):
+    username = data['username']
+    project_id = data['project_id']
+    leave_room(project_id)
+    send(f"{username} has left the chat", room=project_id)
+
 if __name__ == "__main__":
     db.create_all()
-    app.run(debug=True)
+    socketio.run(app, debug=True)
